@@ -1,5 +1,5 @@
 # Openbox Pipemenu written in Python3 
-openbox pipemenu for applications menu written in ```Python3```
+openbox pipemenu for applications written in ```Python3```
 
 Obamenu is pipemenu for openbox windows manager. There are some forks for obamenu here and there but none of them worked for me with python3.
 Python2 will no longer have support after 2020, it has to be replaced with Python3. So I have decided to maintain my own version.
