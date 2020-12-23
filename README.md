@@ -24,7 +24,7 @@ This version has a lot of updates, revisions and additions. A short list for the
 ```
 <menu execute="~/.path/to/obamenu.py" id="My Menu" label="Applications" />
 ```
-6. Reconfigure openbox either by logout or typing ```openbox --reconfigure"``` in your terminal
+6. Reconfigure openbox either by logout or typing ```openbox --reconfigure``` in your terminal
 7. You should now see your applications under the Applications menu.
 
 ## Notes
