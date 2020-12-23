@@ -36,4 +36,4 @@ Please don't get mad if I didn't mentioned about your name.
 Regards
 
 ### Original version
-Original obamenu (v1.1.7) can be found here :http://rmoe.anukis.de/obamenu.html
+Original obamenu (v1.1.7) can be found here: http://rmoe.anukis.de/obamenu.html
