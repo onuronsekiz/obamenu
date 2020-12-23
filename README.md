@@ -3,7 +3,7 @@ openbox pipemenu for applications menu written in ```Python3```
 
 Obamenu is pipemenu for openbox windows manager. There are some forks for obamenu here and there but none of them worked for me with python3.
 Python2 will no longer have support after 2020, it has to be replaced with Python3. So I have decided to maintain my own version.
-Script generally will read *.desktop* files from */usr/share/applications*
+Script generally will read *.desktop* files from */usr/share/applications* and flatpak desktop files.
 
 ## Revisions and Additions
 This version has a lot of updates, revisions and additions. A short list for them is;
