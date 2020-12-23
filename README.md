@@ -9,22 +9,23 @@ Script generally will read *.desktop* files from */usr/share/applications* and f
 This version has a lot of updates, revisions and additions. A short list for them is;
 - It is written to work with latest Python version. (Py3.9.1 when this is coded)
 - Menu items are now alphabetically ordered (one of most important features)
-- Algortihm will try to find all possible icons searching icon theme directories recursively
+- Algorithm will try to find all possible icons searching icon theme directories recursively
 - Desktop items will not be added to Menu if "Exec" command couldn't be found on system
 - Some applications can have duplicate icons in theme folders, best option shall be selected
 - Automatic and direct theme selection option added
 - Flatpak applications support added
 
 ## Installation
-1. Download the file 'obamenu.py', and unpack it somewhere. 
+1. Download the file *obamenu.py*, and unpack it somewhere. 
 2. Make sure it is executable, either by right click-properties or typing ```chmod 754 obamenu.py``` in your terminal.
-3. Edit your menu.xml file (normally found in *./config/openbox/*) or use obmenu, obmenu-qt, kickshaw, etc.  Path to *menu.xml* would differ according to your openbox setup.
-4. Insert the following lines in your menu.xml. Path to *obamenu.py* would differ according to where you have unpacked it. It is usually your openbox config directory.
+3. Don't forget to edit terminal string in *obamenu.py*, write here your terminal of choice. 
+4. Edit your menu.xml file (normally found in *./config/openbox/*) or use obmenu, obmenu-qt, kickshaw, etc.  Path to *menu.xml* would differ according to your openbox setup.
+5. Insert the following lines in your menu.xml. Path to *obamenu.py* would differ according to where you have unpacked it. It is usually your openbox config directory.
 ```
 <menu execute="~/.path/to/obamenu.py" id="My Menu" label="Applications" />
 ```
-5. Reconfigure openbox either by logout or typing ```openbox --reconfigure"``` in your terminal
-6. You should now see your applications under the Applications menu.
+6. Reconfigure openbox either by logout or typing ```openbox --reconfigure"``` in your terminal
+7. You should now see your applications under the Applications menu.
 
 ## Notes
 Although I have wrote most of new codes myself there are some copy+paste too.
