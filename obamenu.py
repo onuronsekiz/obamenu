@@ -22,7 +22,7 @@ import subprocess, glob, os
 
 userhome = os.path.expanduser('~')
 applications_dirs = ("/usr/share/applications", userhome + "/.local/share/applications","/var/lib/flatpak/exports/share/applications")
-image_dir_base = ("/usr/share", "/var/lib/flatpak/exports/share/") # without "pixmaps" -/usr/local/share in FreeBSD, /usr/share on linux
+image_dir_base = ("/usr/share", "/var/lib/flatpak/exports/share") # without "pixmaps" -/usr/local/share in FreeBSD, /usr/share on linux
 try: #automatic theme selection
 	with open(userhome + "/.gtkrc-2.0", 'r') as readobj:
 		for line in readobj:
@@ -34,7 +34,7 @@ except IOError:
 #selected_theme = "Papirus" #direct theme selection 
 application_groups = ("AudioVideo", "Development", "Editors",  "Engineering", "Games", "Graphics", "Internet",  "Multimedia", "Office",  "Other",  "Settings", "System",  "Utilities") # enter here new category as you wish, it will be sorted 
 group_aliases = {"Audio":"Multimedia","Video":"Multimedia","AudioVideo":"Multimedia","Network":"Internet","Game":"Games", "Utility":"Utilities", "Development":"Editors","GTK":"",  "GNOME":""}
-ignoreList = ("gtk3-icon-browser","evince-previewer", "Ted",  "wingide3.2", "python3.4", "feh","xfce4-power-manager-settings","picom","compton" )
+ignoreList = ("gtk3-icon-browser","evince-previewer", "Ted",  "wingide3.2", "python3.4", "feh","xfce4-power-manager-settings", "picom","compton","yad-icon-browser" )
 prefixes = ("legacy","categories","apps","devices","mimetypes","places","preferences","actions", "status","emblems") #added for prefered icon dirs and sizes. could be gathered automatically but wouldn't be sorted like this
 iconSizes = ("48","32","24","16","48x48","40x40","36x36","32x32","24x24","64x64","72x72","96x96","16x16","128x128","256x256","scalable","apps","symbolic")
 terminal_string = "qterminal -e"         # your favourites terminal exec string
@@ -99,7 +99,7 @@ class dtItem(object):
 		self.Comment = data
 
 	def addExec(self, data):
-		if len(data) > 3 and data[-2] == '%':	# get rid of filemanager arguments in dt files
+		if len(data) > 3 and data[-2] == '%': # get rid of filemanager arguments in dt files
 			data = data[:-2].strip()
 		self.Exec = data
 
@@ -126,8 +126,8 @@ class dtItem(object):
 				else:
 					addIconsToList(iconList, theme)
 		if len(tmp) == 1 and tmp[0] != "/":
-			self.Icon = tmp[0]	
-		if len(tmp) > 1: # if there are duplicated icons take only the first one with proper path
+			self.Icon = tmp[0]
+		if len(tmp) > 1: # if there are duplicated icons take only the first matching one with proper path
 			fn=[di+"".join(x) for x in image_file_prefix]
 			tmp = [[x for x in tmp if s in x] for s in fn]
 			while tmp[0] != "/":
@@ -203,7 +203,7 @@ def process_category(cat, curCats, aliases=group_aliases, appGroups=application_
 	#import pdb; pdb.set_trace()
 	if aliases.__contains__(cat):
 		if aliases[cat] == "":
-			return ""                               # ignore this one
+			return "" # ignore this one
 		cat = aliases[cat]
 	if cat in appGroups and cat not in curCats:  # valid categories only and no doublettes, please
 		curCats.append(cat)
@@ -220,7 +220,7 @@ def process_dtfile(dtf,  catDict):  # process this file & extract relevant info
 		if l == "[Desktop Entry]":
 			active = True
 			continue
-		if active == False:     # we don't care about licenses or other comments
+		if active == False: # we don't care about licenses or other comments
 			continue
 		if l == None or len(l) < 1 or l[0] == '#':
 			continue
@@ -244,7 +244,7 @@ def process_dtfile(dtf,  catDict):  # process this file & extract relevant info
 				return #don't add anything to menu if executable not found, goto next desktop file
 			this.addExec(eqi[1]) # add appExec to list
 		elif eqi[0] == "Icon":
-			this.addIcon(eqi[1])				
+			this.addIcon(eqi[1])
 		elif eqi[0] == "Terminal":
 			this.addTerminal(eqi[1])
 		elif eqi[0] == "Type":
@@ -253,7 +253,7 @@ def process_dtfile(dtf,  catDict):  # process this file & extract relevant info
 			this.addType(eqi[1])
 		elif eqi[0] == "Categories":
 			if eqi[1] == '':
-				eqi[1] = "Other"		
+				eqi[1] = "Other"
 			if eqi[1][-1] == ';':
 				eqi[1] = eqi[1][0:-1]
 			cats = []
@@ -281,12 +281,12 @@ if __name__ == "__main__":
 	for appGroup in application_groups:
 		categoryDict[appGroup] = []
 	# now let's look  into the app dirs ...
-	#changed this for loop to add flatpak applications
+	#changed desktop files processing loops to add flatpak applications and sorting
 	dtFiles=[]
 	for appDir in applications_dirs:
 		appDir += "/*.desktop"
 		dtFiles+=glob.glob(appDir)
-	# process each .desktop file in dir    
+	# process each .desktop file in dir
 	for dtf in dtFiles:
 		skipFlag = False
 		for ifn in ignoreList:
@@ -296,14 +296,14 @@ if __name__ == "__main__":
 			process_dtfile(dtf,  categoryDict)
 	# now, generate jwm menu include
 	if simpleOBheader == True:
-		print ("<openbox_pipe_menu>")       # magic header
+		print ("<openbox_pipe_menu>") # magic header
 	else:
 		print ('<?xml version="1.0" encoding="UTF-8" ?><openbox_pipe_menu xmlns="http://openbox.org/"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://openbox.org/" >')  #magic header
 	appGroupLen = len(application_groups)
 	for ag in range(appGroupLen):
 		catList = categoryDict[application_groups[ag]]
 		if len(catList) < 1:
-			continue                # don't create empty menus
+			continue # don't create empty menus
 		# sort list
 		tmpList=[] #blank list to convert to tuple for sorting purpose
 		for app in catList: 
@@ -317,7 +317,6 @@ if __name__ == "__main__":
 		if tmp != "":
 			catStr += "icon=\"%s\"" % tmp
 		print (catStr + ">")
-		#import pdb; pdb.set_trace()
 		for app in catList:
 			progStr = "<item "
 			progStr += "label=\"%s\" " % app[0] #add app's name
@@ -329,5 +328,5 @@ if __name__ == "__main__":
 			progStr += "%s]]></command></action></item>"  % app[1][2] #adding exec command
 			print (progStr)
 		print ("</menu>")
-	print ("</openbox_pipe_menu>")       # magic footer
+	print ("</openbox_pipe_menu>") # magic footer
 	pass # done/debug break
