@@ -128,15 +128,16 @@ class dtItem(object):
 			self.Icon = tmp[0]
 		if len(tmp) > 1: # if there are duplicated icons take only the first matching one with proper path
 			fn=[di+"".join(x) for x in image_file_prefix]
-			tmp = [[x for x in tmp if s in x] for s in fn]
-			while tmp[0] != "/":
-				for item in tmp:
+			temp = [[x for x in tmp if s in x] for s in fn]
+			while temp[0] != "/":
+				for item in temp:
 					if len(item) == 0:
-						tmp.remove(item)
-				tmp = tmp[0]
-				if tmp == []:
+						temp.remove(item)
+				temp = temp[0]
+				if temp == []:
+					temp=tmp[0]
 					break
-			self.Icon = tmp
+			self.Icon = temp
 		return
 
 	def addTerminal(self, data):
