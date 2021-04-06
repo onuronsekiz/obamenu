@@ -126,17 +126,14 @@ class dtItem(object):
 					addIconsToList(iconList, theme)
 		if len(tmp) == 1 and tmp[0] != "/":
 			self.Icon = tmp[0]
-		if len(tmp) > 1: # if there are duplicated icons take only the first matching one with proper path
-			fn=[di+"".join(x) for x in image_file_prefix]
-			temp = [[x for x in tmp if s in x] for s in fn]
-			while temp[0] != "/":
-				for item in temp:
-					if len(item) == 0:
-						temp.remove(item)
-				temp = temp[0]
-				if temp == []:
-					temp=tmp[0]
-					break
+		if len(tmp) > 1: # if there are duplicated icons take one that has the shortest name
+			temp=tmp[0] # assign first item to a temp path
+			flen=len(temp.split("/")[-1]) # split filepath with "/" and take last element of list
+			for fpath in tmp: # check filepath list for shortest filename
+				tlen=len(fpath.split("/")[-1]) # split filepath with / and take last element of list
+				if tlen<flen: # replace icon path with shorter filename path
+					flen=tlen # reallocate shortest filename length
+					temp=fpath # reallocate temp path
 			self.Icon = temp
 		return
 
