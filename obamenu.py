@@ -48,8 +48,8 @@ iconThemes.sort(key=str.lower)
 #iconThemes = ("hicolor", "breeze", "Adwaita", "Papirus", "Tango")  #you can manually enter icon names here with your own sorting
 iconThemes.remove(selected_theme)
 iconThemes.remove("hicolor")
-iconThemes.insert(0, "hicolor")
 iconThemes.insert(0, selected_theme)
+iconThemes.insert(0, "hicolor")
 iconList=[]
 
 #getting icons to lists for faster menu generate
