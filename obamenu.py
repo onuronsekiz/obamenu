@@ -44,6 +44,8 @@ simpleOBheader = True  # print full xml style OB header
 image_file_prefix = (".png", ".svg", ".xpm")
 image_cat_prefix = ("applications-", "accessories-dictionary", "accessories-text-editor","preferences-desktop.","audio-speakers") 
 iconThemes=os.listdir(image_dir_base[0]+"/icons")
+tmplst=[s for s in iconThemes if selected_theme in s]
+selected_theme = iconThemes[0] if tmplst == [] else tmplst[0]
 iconThemes.sort(key=str.lower)
 #iconThemes = ("hicolor", "breeze", "Adwaita", "Papirus", "Tango")  #you can manually enter icon names here with your own sorting
 iconThemes.remove(selected_theme)
