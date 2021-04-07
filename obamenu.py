@@ -30,7 +30,7 @@ try: #automatic theme selection
 except IOError:
 	selected_theme = "Adwaita" #fallback theme
 
-#selected_theme = "gnome" #direct theme selection, ***** SOME DISTRIBUTIONS REQUIRES THIS OPTION UNCOMMENTED.
+#selected_theme = "gnome" # direct theme selection, don't make it hicolor.   ***** SOME DISTRIBUTIONS REQUIRES THIS OPTION UNCOMMENTED.
 application_groups = ("AudioVideo", "Development", "Editors",  "Engineering", "Games", "Graphics", "Internet",  "Multimedia", "Office",  "Other",  "Settings", "System",  "Utilities") # enter here new category as you wish, it will be sorted 
 group_aliases = {"Audio":"Multimedia","Video":"Multimedia","AudioVideo":"Multimedia","Network":"Internet","Game":"Games", "Utility":"Utilities", "Development":"Editors","GTK":"",  "GNOME":""}
 ignoreList = ("gtk3-icon-browser","evince-previewer", "Ted",  "wingide3.2", "python3.4", "feh","xfce4-power-manager-settings", "picom","compton","yad-icon-browser" )
@@ -44,14 +44,12 @@ simpleOBheader = True  # print full xml style OB header
 image_file_prefix = (".png", ".svg", ".xpm")
 image_cat_prefix = ("applications-", "accessories-dictionary", "accessories-text-editor","preferences-desktop.","audio-speakers") 
 iconThemes=os.listdir(image_dir_base[0]+"/icons")
-tmp=[s for s in iconThemes if selected_theme in s]
-selected_theme = iconThemes[0] if tmp == [] else tmp[0]
 iconThemes.sort(key=str.lower)
 #iconThemes = ("hicolor", "breeze", "Adwaita", "Papirus", "Tango")  #you can manually enter icon names here with your own sorting
 iconThemes.remove(selected_theme)
 iconThemes.remove('hicolor') if 'hicolor' in iconThemes else False
-iconThemes.insert(0, selected_theme) if selected_theme != 'hicolor' else False
 iconThemes.insert(0, "hicolor")
+iconThemes.insert(0, selected_theme) if selected_theme != 'hicolor' else False
 iconList=[]
 
 #getting icons to lists for faster menu generate
@@ -160,13 +158,13 @@ def getCatIcon(cat):
 			cat = "applications-education-language"
 		if cat == "applications-settings":
 			cat = "applications-development"
-	if theme != "Adwaita":
+	if theme != "Adwaita" and theme != "gnome":
 		if cat == "applications-editors":
 			cat = "applications-development"
 	if theme == "Adwaita":
 		if cat == "applications-multimedia":
 			cat = "audio-speakers"
-	if theme == "Adwaita" or theme == "Papirus":
+	if theme == "Adwaita" or theme == "Papirus" or theme == "gnome":
 		if cat == "applications-editors":
 			cat = "accessories-text-editor"
 		if cat == "applications-settings":
@@ -201,7 +199,6 @@ def xescape(s):
 
 def process_category(cat, curCats, aliases=group_aliases, appGroups=application_groups):
 	# first process aliases
-	#import pdb; pdb.set_trace()
 	if aliases.__contains__(cat):
 		if aliases[cat] == "":
 			return "" # ignore this one
