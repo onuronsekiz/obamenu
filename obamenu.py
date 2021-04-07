@@ -51,7 +51,6 @@ iconThemes.sort(key=str.lower)
 iconThemes.remove(selected_theme)
 iconThemes.remove('hicolor') if 'hicolor' in iconThemes else False
 iconThemes.insert(0, "hicolor")
-iconThemes.insert(0, selected_theme) if selected_theme != 'hicolor' else False
 iconList=[]
 
 #getting icons to lists for faster menu generate
