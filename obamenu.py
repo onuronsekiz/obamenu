@@ -50,6 +50,7 @@ iconThemes.sort(key=str.lower)
 #iconThemes = ("hicolor", "breeze", "Adwaita", "Papirus", "Tango")  #you can manually enter icon names here with your own sorting
 iconThemes.remove(selected_theme)
 iconThemes.remove('hicolor') if 'hicolor' in iconThemes else False
+iconThemes.insert(0, selected_theme) if selected_theme != 'hicolor' else False
 iconThemes.insert(0, "hicolor")
 iconList=[]
 
