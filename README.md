@@ -19,7 +19,7 @@ This version has a lot of updates, revisions and additions. A short list for the
 1. Download the file *obamenu.py*, and unpack it somewhere. 
 2. Make sure it is executable, either by right click-properties or typing ```chmod 755 obamenu.py``` in your terminal.
 3. Don't forget to edit terminal string in *obamenu.py*, write here your terminal of choice.
-4. Some distros need to uncomment line 35 with a proper icon folder name available in */usr/share/icons/*. Usually ````selected_theme="gnome"```` or ````selected_theme="Adwaita"```` works.
+4. Some distros need to uncomment line 33 with a proper icon folder name available in */usr/share/icons/*. Usually ````selected_theme="gnome"```` or ````selected_theme="Adwaita"```` works.
 5. Edit your menu.xml file (normally found in *~/.config/openbox/*) or use obmenu, obmenu-qt, kickshaw, etc.  Path to *menu.xml* would differ according to your openbox setup. If you don't have any files under this directory, copy all files from */etc/xdg/openbox/* to *~/.config/openbox/* with this command ```cp /etc/xdg/openbox/* ~/.config/openbox/```.
 6. Insert the following lines in your menu.xml. Path to *obamenu.py* would differ according to where you have unpacked it. It is usually your openbox config directory.
 ```
